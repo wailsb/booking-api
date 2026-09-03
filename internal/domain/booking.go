@@ -54,6 +54,9 @@ type Booking struct {
 type BookingRepository interface {
 	CreateBookable(ctx context.Context, bookable *Bookable) error
 	GetBookableByID(ctx context.Context, id uuid.UUID) (*Bookable, error)
+	GetBookingByID(ctx context.Context, id uuid.UUID) (*Booking, error)
+	ListBookingsByBookable(ctx context.Context, bookableID uuid.UUID, start, end time.Time) ([]Booking, error)
+	GetBookingsByBookable(ctx context.Context, bookableID uuid.UUID, start, end time.Time) ([]Booking, error)
 	CreateBooking(ctx context.Context, booking *Booking) error
 	UpdateBookingStatus(ctx context.Context, bookingID uuid.UUID, status BookingStatus, updatedBy uuid.UUID) error
 }
