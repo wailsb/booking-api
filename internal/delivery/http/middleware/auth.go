@@ -59,8 +59,9 @@ func AuthMiddleware(jwtSecret []byte, requiredRoles ...string) func(http.Handler
 			}
 
 			// Pass User ID (X) and Role (Y) into Context
+			// Ensure UserIDKey uses the contextKey type explicitly in auth.go:
 			ctx := context.WithValue(r.Context(), UserIDKey, claims.UserID)
-			ctx = context.WithValue(r.Context(), RoleKey, claims.Role)
+			ctx = context.WithValue(ctx, RoleKey, claims.Role) // Use 'ctx', not 'r.Context()'
 
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
