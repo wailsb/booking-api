@@ -65,3 +65,9 @@ type AuditRepository interface {
 	RecordLog(ctx context.Context, log *AuditLog) error
 	GetLogsByEntity(ctx context.Context, entityType string, entityID uuid.UUID) ([]AuditLog, error)
 }
+type BookingUseCase interface {
+	CreateBooking(ctx context.Context, booking *Booking) (*Booking, error)
+	CancelBooking(ctx context.Context, bookingID uuid.UUID) error
+	GetBookingByID(ctx context.Context, id uuid.UUID) (*Booking, error)
+	ListBookingsByBookable(ctx context.Context, bookableID uuid.UUID, start, end time.Time) ([]Booking, error)
+}
