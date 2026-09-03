@@ -2,13 +2,20 @@
 setlocal enabledelayedexpansion
 
 echo ===================================
-echo Resetting & Starting Docker Stack...
+echo Resetting and Starting Docker Stack...
 echo ===================================
-docker-compose down -v
-docker-compose up --build -d
+docker compose down -v
+docker compose up --build -d
+
+if %ERRORLEVEL% NEQ 0 (
+    echo.
+    echo [ERROR] Docker command failed. Ensure Docker Desktop is running!
+    pause
+    exit /b %ERRORLEVEL%
+)
 
 echo.
-echo Waiting 6 seconds for Postgres & Migrations...
+echo Waiting 6 seconds for Postgres and Migrations...
 timeout /t 6 /nobreak > nul
 
 set BASE_URL=http://localhost:8080/api/v1
@@ -23,7 +30,7 @@ echo.
 
 echo.
 echo ===================================
-echo 2. TEST Overlapping Booking (Should fail with 409 Conflict due to GIST exclusion)
+echo 2. TEST Overlapping Booking
 echo ===================================
 curl -X POST "%BASE_URL%/bookings" ^
   -H "Content-Type: application/json" ^
@@ -32,6 +39,6 @@ echo.
 
 echo.
 echo ===================================
-echo Seed & Environment Ready
+echo Seed and Environment Ready
 echo ===================================
 pause
