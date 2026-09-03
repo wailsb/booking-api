@@ -1,0 +1,64 @@
+wail-notes-*.md
+# Executables & Binaries
+/bin/
+/dist/
+*.exe
+*.exe;
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+booking-api
+server
+
+# Dependency directories
+# (Uncomment if you use vendor mode: go mod vendor)
+# /vendor/
+
+# Environment & Secret files
+.env
+.env.*
+!.env.example
+
+# Database & Docker persistent data / local mounts
+*.db
+*.sqlite
+.pgdata/
+
+# IDEs & Editors
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (GoLand, IntelliJ, etc.)
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Operating System Files
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehpriv.dat
+Desktop.ini
+
+# Linux
+*~
+
+# Logs & Temporary Files
+*.log
+logs/
+/tmp/
