@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"booking-api/internal/domain"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
@@ -18,11 +19,11 @@ const (
 
 type Claims struct {
 	UserID uuid.UUID `json:"user_id"`
-	Role   string    `json:"role"`
+	Role   domain.UserRole `json:"role"`
 	jwt.RegisteredClaims
 }
 
-func AuthMiddleware(jwtSecret []byte, requiredRoles ...string) func(http.Handler) http.Handler {
+func AuthMiddleware(jwtSecret []byte, requiredRoles ...domain.UserRole) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			authHeader := r.Header.Get("Authorization")

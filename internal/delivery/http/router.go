@@ -4,9 +4,10 @@ import (
 	"net/http"
 
 	"booking-api/internal/delivery/http/middleware"
-
+	"booking-api/internal/domain"
 	"github.com/go-chi/chi/v5"
 	chiMiddleware "github.com/go-chi/chi/v5/middleware"
+	
 )
 
 func NewRouter(bookingHandler *BookingHandler, jwtSecret []byte) http.Handler {
@@ -35,7 +36,7 @@ func NewRouter(bookingHandler *BookingHandler, jwtSecret []byte) http.Handler {
 
 		// Admin-Only Protected Routes Example
 		r.Group(func(r chi.Router) {
-			r.Use(middleware.AuthMiddleware(jwtSecret, "ADMIN")) // Require "ADMIN" role specifically
+			r.Use(middleware.AuthMiddleware(jwtSecret, domain.RoleAdmin)) // Require "ADMIN" role specifically
 			// Place admin-only routes here...
 		})
 	})
